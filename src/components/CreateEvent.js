@@ -1,5 +1,5 @@
 import React from "react";
-import ApiService from "../service/api.service";
+// import ApiService from "../service/api.service";
 
 export default function CreateEvent() {
     const [date, setDate] = React.useState("");
@@ -13,8 +13,8 @@ export default function CreateEvent() {
     const [organizer, setOrganizer] = React.useState("");
     const [coOrganizer, setCoOrganizer] = React.useState("");
     const [attendees, setAttendees] = React.useState("");
-    const [visibility, setVisibility] = React.useState("");
-    const [maxParticipants, setMaxParticipants] = React.useState("");
+    const [visibility] = React.useState("");
+    const [maxParticipants] = React.useState("");
 
     // send data to backend in json format
 /*    ApiService.createEvent({
