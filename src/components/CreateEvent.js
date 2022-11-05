@@ -1,160 +1,94 @@
 import React from "react";
-// import ApiService from "../service/api.service";
+import ApiService from "../service/api.service";
+import {EventFields,countryList,visibility} from "../constants/FormFields";
+
+const field = EventFields;
+let fieldsState = {};
+field.forEach((item) => {fieldsState[item.id] = ""});
+console.log(fieldsState);
+
+
+
 
 export default function CreateEvent() {
-    const [date, setDate] = React.useState("");
-    const [state, setState] = React.useState("");
-    const [city, setCity] = React.useState("");
-    const [address, setAddress] = React.useState("");
-    const [postalCode, setPostalCode] = React.useState("");
-    const [country, setCountry] = React.useState("");
-    const [price, setPrice] = React.useState("");
-    const [description, setDescription] = React.useState("");
-    const [organizer, setOrganizer] = React.useState("");
-    const [coOrganizer, setCoOrganizer] = React.useState("");
-    const [attendees, setAttendees] = React.useState("");
-    const [visibility] = React.useState("");
-    const [maxParticipants] = React.useState("");
+    const [fields, setFields] = React.useState(fieldsState);
 
-    // send data to backend in json format
-/*    ApiService.createEvent({
-        date: date,
-        state: state,
-        city: city,
-        address: address,
-        postalCode: postalCode,
-        country: country,
-        price: price,
-        description: description,
-        organizer: organizer,
-        coOrganizer: coOrganizer,
-        attendees: attendees,
-        visibility: visibility,
-        maxParticipants: maxParticipants
-    }).then((response) => {
-        console.log(response);
-    }
-    ).catch((error) => {
-        console.log(error);
-    }
-    )*/
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const json = JSON.stringify(fields);
+        ApiService.createEvent("/events/create",json).then(r =>
 
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(date, state, city, address, postalCode, country, price, description, organizer, coOrganizer, attendees, visibility, maxParticipants);
+            console.log(r));
     }
 
     return (
+        <form className="mt-8 space-y-3 shadow-2xl rounded-lg p-10">
+            <div className="space-y-px ">
+                {field.map((item) => {
+                        return (
+                            <div key={item.id}>
 
-        <div className="w-full max-w-xs">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="date">
-                        Date
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="date" type="date" placeholder="Date" value={date} onChange={e => setDate(e.target.value)}>
-                    </input>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="state">
-                        Etat
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="state" type="text" placeholder="State" value={state} onChange={e => setState(e.target.value)}>
-                    </input>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="city">
-                        Ville
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="city" type="text" placeholder="City" value={city} onChange={e => setCity(e.target.value)}>
-                    </input>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
-                        Adresse
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="address" type="text" placeholder="Address" value={address} onChange={e => setAddress(e.target.value)}>
-                    </input>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="postalCode">
-                        Code postal
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="postalCode" type="text" placeholder="Postal Code" value={postalCode} onChange={e => setPostalCode(e.target.value)}>
-                    </input>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="country">
-                        Pays
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="country" type="text" placeholder="Country" value={country} onChange={e => setCountry(e.target.value)}>
-                    </input>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
-                        Prix
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="price" type="text" placeholder="Price" value={price} onChange={e => setPrice(e.target.value)}>
-                    </input>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
-                        Description
-                    </label>
-                    <textarea
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="description" type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)}>
-                    </textarea>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="organizer">
-                        Organisateur
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="organizer" type="text" placeholder="Organizer" value={organizer} onChange={e => setOrganizer(e.target.value)}>
-                    </input>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="coOrganizer">
-                        Co-organisateur
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="coOrganizer" type="text" placeholder="Co-organizer" value={coOrganizer} onChange={e => setCoOrganizer(e.target.value)}>
-                    </input>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="attendees">
-                        Participants
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="attendees" type="text" placeholder="Attendees" value={attendees} onChange={e => setAttendees(e.target.value)}>
-                    </input>
-                </div>
+                                <div className="flex mt-4 justify-center">
+                                    {item.type === "select"? (
+                                        <select
+                                            id={item.id}
+                                            name={item.name}
+                                            type={item.type}
+                                            autoComplete={item.autoComplete}
+                                            required={item.isRequired}
+                                            placeholder={item.placeholder}
+                                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                                            onChange={(e) => setFields({...fields, [e.target.name]: e.target.value})}
+                                        >
+                                            {item.name === "country"? (
+                                                countryList.map((country) => {
+                                                    return (
+                                                        <option key={country} value={country}>{country}</option>
+                                                    )
+                                                })
+                                            ):(visibility.map((vis) => {
+                                                return (
+                                                    <option key={vis} value={vis}>{vis}</option>
+                                                )
 
-                <div className="flex items-center justify-between">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={handleSubmit}>
-                        Créer
-                    </button>
+                                            }
+                                            ))}
+
+
+
+                                        </select>
+                                    ):(
+                                    <input
+                                        id={item.id}
+                                        name={item.id}
+                                        type={item.type}
+                                        autoComplete={item.id}
+                                        placeholder={item.placeholder}
+                                        required
+                                        className={item.id==="public"?"appearance-none  block px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm":
+                                            "appearance-none  block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"}
+                                        onChange={(e) => setFields({...fields, [e.target.name]: e.target.value})}
+                                        // if type name is price then add min value
+                                        min={item.id === "price" ? 0 : null}
+
+
+                                    />)}
+                                </div>
+
+                            </div>
+
+                        )
+                    }
+
+
+                )}
+
+                <div className="flex justify-center pt-4">
+                    <button className={"bg-gradient-to-l from-purple-600 to-indigo-600 w-full hover:bg-purple-700 text-white  font-bold py-2 px-2 rounded"}  onClick={handleSubmit}>Créer</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+
     );
+
 }

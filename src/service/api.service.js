@@ -7,13 +7,10 @@ class ApiService {
     
     
 
-    get(path) {
-        return this.http.get(path);
+    getEvents() {
+        return this.http.get('/events');
     }
 
-    post(path, data) {
-        return this.http.post(path, data);
-    }
 
     put(path, data) {
         return this.http.put(path, data);
@@ -23,8 +20,12 @@ class ApiService {
         return this.http.delete(path);
     }
 
-    createEvent(param) {
-        
+    createEvent(path, data) {
+        return this.http.post(path, data);
+    }
+
+    login(param) {
+        return this.http.post('/auth/signin', param);
     }
 }
 
