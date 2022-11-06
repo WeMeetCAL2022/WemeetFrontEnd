@@ -137,11 +137,11 @@ const EventFields=[
     },
     {
         labelText:"postal code",
-        labelFor:"postal-code",
-        id:"postal-code",
-        name:"postal-code",
+        labelFor:"postalCode",
+        id:"postalCode",
+        name:"postalCode",
         type:"number",
-        autoComplete:"postal-code",
+        autoComplete:"postalCode",
         isRequired:true,
         placeholder:"code postal"
     },
@@ -164,7 +164,8 @@ const EventFields=[
         type:"number",
         autoComplete:"price",
         isRequired:true,
-        placeholder:"price"
+        placeholder:"price",
+        min:0
     },
    ,
     {
@@ -172,7 +173,7 @@ const EventFields=[
         labelFor:"public",
         id:"isPublic",
         name:"public",
-        type:"select",
+        type:"checkbox",
         autoComplete:"public",
         isRequired:true,
         placeholder:"public"
@@ -194,9 +195,9 @@ const EventFields=[
         type:"textarea",
         autoComplete:"description",
         isRequired:true,
-        placeholder:"description"
+        placeholder:"description (20 caractères min.)",
+        min:20
     }
-
 ]
 
 const countryList = [

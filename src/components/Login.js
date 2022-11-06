@@ -14,9 +14,9 @@ export default function Login() {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        const json = JSON.stringify(fields);
+        let json = JSON.stringify(fields);
         console.log(json);
-        ApiService.login(json).then(r =>
+        ApiService.login(JSON.parse(json)).then(r =>
             console.log(r));
     }
     return (
