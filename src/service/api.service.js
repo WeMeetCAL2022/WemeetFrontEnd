@@ -4,13 +4,10 @@ class ApiService {
     constructor() {
         this.http = http;
     }
-    
-    
 
     getEvents() {
         return this.http.get('/events');
     }
-
 
     put(path, data) {
         return this.http.put(path, data);
