@@ -11,7 +11,6 @@ export default function Header({
         <div className="mb-10">
             <div className="flex justify-center">
                 <img className="h-20 w-20 sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg" alt="Workflow"/>
-
             </div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                 {heading}
