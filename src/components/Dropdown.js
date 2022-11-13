@@ -1,12 +1,13 @@
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import apiService from "../service/api.service";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Dropdown() {
+export default function Dropdown({id}) {
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
@@ -39,21 +40,19 @@ export default function Dropdown() {
                                 </a>
                             )}
                         </Menu.Item>
-                        <form method="POST" action="#">
-                            <Menu.Item>
-                                {({ active }) => (
-                                    <button
-                                        type="submit"
-                                        className={classNames(
-                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                            'block w-full px-4 py-2 text-left text-sm'
-                                        )}
-                                    >
-                                        Supprimer
-                                    </button>
-                                )}
-                            </Menu.Item>
-                        </form>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <button
+                                    onClick={() => apiService.cancelEvent(id)}
+                                    className={classNames(
+                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                        'block w-full px-4 py-2 text-left text-sm'
+                                    )}
+                                >
+                                    Annuler
+                                </button>
+                            )}
+                        </Menu.Item>
                     </div>
                 </Menu.Items>
             </Transition>

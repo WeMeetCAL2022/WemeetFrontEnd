@@ -9,6 +9,10 @@ class ApiService {
         return this.http.get('/events');
     }
 
+    cancelEvent(id) {
+        return this.http.post('/events/cancel/' + id);
+    }
+
     put(path, data) {
         return this.http.put(path, data);
     }
