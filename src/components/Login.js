@@ -8,6 +8,11 @@ let fieldsState = {};
 field.forEach((item) => {fieldsState[item.id] = ""});
 console.log(fieldsState);
 
+function setToken(userToken) {
+    sessionStorage.setItem('token', JSON.stringify(userToken));
+}
+
+
 async function loginUser(credentials) {
 return ApiService.login(JSON.parse(credentials)).then(r =>{
         return {data:r.data, status:r.status}});
@@ -18,7 +23,7 @@ function RedirectToHome() {
     window.location.href = "/home";
 }
 
-export default function Login({setToken}) {
+export default function Login() {
     const [fields, setFields] = React.useState(fieldsState);
     const handleChange = (event) => {
         setFields({...fields, [event.target.id]: event.target.value});

@@ -3,6 +3,7 @@ import apiService from "../service/api.service";
 
 
 export default function EventList() {
+
     const [events, setEvents] = react.useState([]);
     const [loading, setLoading] = react.useState(true);
     const [error, setError] = react.useState(null);

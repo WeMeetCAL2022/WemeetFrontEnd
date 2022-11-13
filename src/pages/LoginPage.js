@@ -12,7 +12,7 @@ export default function LoginPage({setToken}) {
             linkName="Inscrivez-vous !"
             linkUrl="/SignUp"
         />
-    <Login setToken={setToken}/>
+    <Login setToken={{setToken}}/>
         </div>
     </>
 )

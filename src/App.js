@@ -3,7 +3,9 @@ import {
     BrowserRouter,
     Routes,
     Route,
+
 } from "react-router-dom";
+
 import SignupPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import Home from "./pages/Home";
@@ -12,21 +14,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import EventList from "./components/EventList";
 import Login from "./components/Login";
-
-function setToken(userToken) {
-    sessionStorage.setItem('token', JSON.stringify(userToken));
-}
-function getToken() {
-    const tokenString = sessionStorage.getItem('token');
-    const userToken = JSON.parse(tokenString);
-    return userToken?.accessToken
-}
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
-    const token = getToken();
-    if (!token) {
-        return <LoginPage setToken={setToken} />
-    }
   return (
       <>
           <Navbar/>
@@ -35,12 +25,23 @@ function App() {
 
               <BrowserRouter>
                   <Routes>
+                        <Route path="/" element={<Home/>}/>
                       <Route path="/home" element={<Home/>}/>
                       <Route path="/login" element={<LoginPage/>} />
                       <Route path="/signup" element={<SignupPage/>} />
-                      <Route path="/event/create" element={<CreateEventPage/>} />
-                      <Route path="/events" element={<EventList/>} />
-                  </Routes>
+                      <Route path="/events" element={
+                          <PrivateRoute>
+                                <EventList/>
+                            </PrivateRoute>
+                        } />
+
+                  <Route path="/event/create" element={
+                      <PrivateRoute>
+                      <CreateEventPage/>
+                        </PrivateRoute>
+                          } />
+
+                    </Routes>
               </BrowserRouter>
 
 
