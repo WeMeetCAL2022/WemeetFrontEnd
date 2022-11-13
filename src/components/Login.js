@@ -7,17 +7,32 @@ const field = loginFields;
 let fieldsState = {};
 field.forEach((item) => {fieldsState[item.id] = ""});
 console.log(fieldsState);
-export default function Login() {
+
+async function loginUser(credentials) {
+return ApiService.login(JSON.parse(credentials)).then(r =>{
+        return {data:r.data, status:r.status}});
+
+}
+
+function RedirectToHome() {
+    window.location.href = "/home";
+}
+
+export default function Login({setToken}) {
     const [fields, setFields] = React.useState(fieldsState);
     const handleChange = (event) => {
         setFields({...fields, [event.target.id]: event.target.value});
     }
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = async e => {
+        e.preventDefault();
         let json = JSON.stringify(fields);
         console.log(json);
-        ApiService.login(JSON.parse(json)).then(r =>
-            console.log(r));
+        const login = await loginUser(json);
+        console.log(login.data);
+        if (login.status === 200) {
+            setToken(login.data);
+            RedirectToHome();
+        }
     }
     return (
         <form className="mt-8 space-y-3" >

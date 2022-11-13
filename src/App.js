@@ -11,9 +11,22 @@ import CreateEventPage from "./pages/CreateEventPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import EventList from "./components/EventList";
+import Login from "./components/Login";
 
+function setToken(userToken) {
+    sessionStorage.setItem('token', JSON.stringify(userToken));
+}
+function getToken() {
+    const tokenString = sessionStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.accessToken
+}
 
 function App() {
+    const token = getToken();
+    if (!token) {
+        return <LoginPage setToken={setToken} />
+    }
   return (
       <>
           <Navbar/>

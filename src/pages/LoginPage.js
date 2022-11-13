@@ -2,7 +2,7 @@ import React from "react";
 import Login from "../components/Login";
 import Header from "../components/Header";
 
-export default function LoginPage() {
+export default function LoginPage({setToken}) {
     return(
     <>
         <div className="shadow-xl rounded-md p-8">
@@ -12,7 +12,7 @@ export default function LoginPage() {
             linkName="Inscrivez-vous !"
             linkUrl="/SignUp"
         />
-    <Login/>
+    <Login setToken={setToken}/>
         </div>
     </>
 )
