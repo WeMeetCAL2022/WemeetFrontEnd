@@ -6,68 +6,96 @@ import FaceIcon from '@mui/icons-material/Face';
 import EuroIcon from '@mui/icons-material/Euro';
 
 
-export default function EventList() {
+export default function EventList({isMyEvent}) {
     const [events, setEvents] = react.useState([]);
     const [loading, setLoading] = react.useState(true);
     const [error, setError] = react.useState(null);
 
     react.useEffect(() => {
-            apiService.getEvents().then((response) => {
-                    setEvents(response.data);
-                    setLoading(false);
-                }
-            ).catch((error) => {
-                    setError(error);
-                    setLoading(false);
-                }
-            )
+            if (isMyEvent) {
+                apiService.getMyEvents().then((response) => {
+                        setEvents(response.data);
+                        setLoading(false);
+                    }
+                ).catch((error) => {
+                        setError(error);
+                        setLoading(false);
+                    }
+                )
+            } else {
+                apiService.getEvents().then((response) => {
+                        setEvents(response.data);
+                        setLoading(false);
+                    }
+                ).catch((error) => {
+                        setError(error);
+                        setLoading(false);
+                    }
+                )
+            }
         }
         , []);
-
     return (
         <>
             {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
             <div
                 className="absolute top-20 left-0 w-full px-10">
-                <p className="text-xl text-center my-4">Liste des événements</p>
-
+                {isMyEvent && <p className="text-xl text-center my-4">Liste de mes événements </p>}
+                {!isMyEvent && <p className="text-xl text-center my-4">Liste des événements </p>}
                 <div
                     className="absolute inset-x-0 top-0 items-center justify-center hidden overflow-hidden">
                 </div>
-                <div className="relative grid gap-5 grid-cols-4">
+                <div className="relative flex flex-row flex-wrap gap-5 justify-evenly">
                     {events.map((event) => {
+                            let date = new Date(event.time)
+                            let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
+                            let eventHeure = date.getHours() + ':' + date.getMinutes()
+
                             console.log(event)
                             return (
                                 <div
-                                    className="flex flex-col justify-between text-left transition-shadow duration-200 rounded shadow-xl group hover:shadow-2xl">
+                                    className="basis-[24%] text-left transition-shadow duration-200 rounded shadow-xl hover:shadow-2xl">
+                                    <a className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
 
-                                    <a href="#" className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
-
-                                        <div className="stack">
+                                        <div className="relative">
                                             <img
                                                 alt="Home"
                                                 src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                                className="h-56 w-full rounded-md object-cover"
+                                                className={"h-56 w-full rounded-md object-cover " + (event.state === 'CANCELLED' ? "blur-sm brightness-50" : "")}
                                             />
+                                            {event.state === 'CANCELLED' && <div
+                                                className="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                                                <h3>Annulé</h3></div>}
                                         </div>
-                                        <div className="flex justify-end mb-2"></div>
-                                        <div className="mt-2">
+                                        <div className="mt-4">
                                             <dl>
                                                 <div className="flex">
                                                     <dt className="text-gray-500">Titre</dt>
                                                     <dd className="font-medium">&nbsp;: {event.title}</dd>
                                                     <div className="flex-1"></div>
-                                                    <div><Dropdown id={event.id}/></div>
+                                                    { (event.state !== 'CANCELLED' && isMyEvent) &&
+                                                        <div><Dropdown id={event.id}/></div>
+                                                    }
                                                 </div>
 
                                                 <div className="flex">
                                                     <dt className="text-gray-500">Adresse :&nbsp;</dt>
                                                     <dd className="font-medium flex-1">{event.address}, {event.city} {event.postalCode}</dd>
                                                 </div>
+
+                                                <div className="flex mt-2">
+                                                    <dt className="text-gray-500">Date :&nbsp;</dt>
+                                                    <dd className="font-medium flex-1">{eventDate}</dd>
+                                                </div>
+
+                                                <div className="flex mt-2">
+                                                    <dt className="text-gray-500">Heure :&nbsp;</dt>
+                                                    <dd className="font-medium flex-1">{eventHeure}</dd>
+                                                </div>
                                             </dl>
 
-                                            <div className="mt-6 flex items-center gap-8 text-xs">
+                                            <div className="mt-6 flex items-center gap-8 text-xs flex-wrap">
                                                 <div className="sm:inline-flex sm:shrink-0 sm:items-center">
                                                     <GroupIcon/>
                                                     <div className="mt-1.5 sm:ml-3 sm:mt-0">

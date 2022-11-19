@@ -26,8 +26,8 @@ function App() {
                       <Route path="/login" element={<LoginPage/>} />
                       <Route path="/signup" element={<SignupPage/>} />
                       <Route path="/event/create" element={<CreateEventPage/>} />
-                      <Route path="/events" element={<EventList/>} />
-                      <Route path="/myevents" element={<EventList/>} />
+                      <Route path="/events" element={<EventList isMyEvent={false}/>} />
+                      <Route path="/myevents" element={<EventList isMyEvent={true}/>} />
                   </Routes>
               </BrowserRouter>
 

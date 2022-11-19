@@ -9,6 +9,10 @@ class ApiService {
         return this.http.get('/events');
     }
 
+    getMyEvents() {
+        return this.http.get('/events/mine');
+    }
+
     cancelEvent(id) {
         return this.http.post('/events/cancel/' + id);
     }
