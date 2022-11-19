@@ -14,13 +14,20 @@ export default function Navbar() {
                     <div className="md:flex md:items-center md:gap-12">
                         <nav aria-label="Site Nav" className="hidden md:block">
                             <ul className="flex items-center gap-6 text-sm ">
-
                                 <li>
                                     <a
                                         className="text-gray-500 transition hover:text-gray-500/75"
                                         href="/events"
                                     >
-                                        Mes events
+                                        Évènements
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        className="text-gray-500 transition hover:text-gray-500/75"
+                                        href="/myevents"
+                                    >
+                                        Mes évènements
                                     </a>
                                 </li>
 
@@ -29,7 +36,7 @@ export default function Navbar() {
                                         className="text-gray-500 transition hover:text-gray-500/75"
                                         href="/event/create"
                                     >
-                                        créer un event
+                                        Créer un évènement
                                     </a>
                                 </li>
 

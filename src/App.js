@@ -17,7 +17,7 @@ function App() {
   return (
       <>
           <Navbar/>
-      <div className="min-h-full h-screen  flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md w-full space-y-8">
 
               <BrowserRouter>
@@ -26,7 +26,8 @@ function App() {
                       <Route path="/login" element={<LoginPage/>} />
                       <Route path="/signup" element={<SignupPage/>} />
                       <Route path="/event/create" element={<CreateEventPage/>} />
-                      <Route path="/events" element={<EventList/>} />
+                      <Route path="/events" element={<EventList isMyEvent={false}/>} />
+                      <Route path="/myevents" element={<EventList isMyEvent={true}/>} />
                   </Routes>
               </BrowserRouter>
 
