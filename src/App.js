@@ -38,7 +38,12 @@ function App() {
                         } />
                         <Route path="/events" element={
                             <PrivateRoute>
-                                <EventList/>
+                                <EventList isMyEvent={false}/>
+                            </PrivateRoute>
+                        } />
+                        <Route path="/myevents" element={
+                            <PrivateRoute>
+                                <EventList isMyEvent={true}/>
                             </PrivateRoute>
                         } />
                         <Route path="/event/create" element={
