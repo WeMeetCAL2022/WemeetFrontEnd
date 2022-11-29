@@ -8,7 +8,7 @@ field.forEach((item) => {fieldsState[item.id] = ""});
 console.log(fieldsState);
 
 function setToken(userToken) {
-    localStorage.setItem('token', JSON.stringify(userToken));
+    localStorage.setItem('token', JSON.stringify('Bearer '+userToken.accessToken));
 }
 
 async function loginUser(credentials) {

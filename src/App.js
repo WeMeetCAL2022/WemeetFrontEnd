@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import EventList from "./components/EventList";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import EditEventPage from "./pages/EditEventPage";
 
 function App() {
   return (
@@ -49,6 +50,11 @@ function App() {
                         <Route path="/event/create" element={
                             <PrivateRoute>
                                 <CreateEventPage/>
+                            </PrivateRoute>
+                        } />
+                        <Route path={"/event/modify/:id"} element={
+                            <PrivateRoute>
+                                <EditEventPage/>
                             </PrivateRoute>
                         } />
                         <Route path="*" element={<Home/>}/>                    
