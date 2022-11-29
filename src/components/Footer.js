@@ -8,13 +8,11 @@ export default function Footer() {
                     <div className="flex justify-center text-teal-600 sm:justify-start">
                         <img className="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg" alt="Workflow"/>
                     </div>
-
                     <p className="mt-4 text-center text-sm text-gray-500 lg:mt-0 lg:text-right">
                         Copyright &copy; 2022. All rights reserved.
                     </p>
                 </div>
             </div>
         </footer>
-
     )
 }

@@ -5,7 +5,6 @@ import GroupIcon from '@mui/icons-material/Group';
 import FaceIcon from '@mui/icons-material/Face';
 import EuroIcon from '@mui/icons-material/Euro';
 
-
 export default function EventList({isMyEvent}) {
     const [events, setEvents] = react.useState([]);
     const [loading, setLoading] = react.useState(true);
@@ -48,7 +47,7 @@ export default function EventList({isMyEvent}) {
                 </div>
                 <div className="relative flex flex-row flex-wrap gap-5 justify-evenly">
                     {events.map((event) => {
-                            let date = new Date(event.time)
+                            let date = new Date(event.date)
                             let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
                             let eventHeure = date.getHours() + ':' + date.getMinutes()
 
