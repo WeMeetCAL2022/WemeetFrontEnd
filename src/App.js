@@ -19,51 +19,49 @@ import EditEventPage from "./pages/EditEventPage";
 
 function App() {
   return (
-    <>
+    <div class="flex flex-col h-screen justify-between">
         <Navbar/>
-        <div className="min-h-full h-screen  flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/home" element={<Home/>}/>
-                        <Route path="/login" element={
-                            <PublicRoute>
-                                <LoginPage/>
-                            </PublicRoute>
-                        } />
-                        <Route path="/signup" element={
-                            <PublicRoute>
-                                <SignupPage/>
-                            </PublicRoute>
-                        } />
-                        <Route path="/events" element={
-                            <PrivateRoute>
-                                <EventList isMyEvent={false}/>
-                            </PrivateRoute>
-                        } />
-                        <Route path="/myevents" element={
-                            <PrivateRoute>
-                                <EventList isMyEvent={true}/>
-                            </PrivateRoute>
-                        } />
-                        <Route path="/event/create" element={
-                            <PrivateRoute>
-                                <CreateEventPage/>
-                            </PrivateRoute>
-                        } />
-                        <Route path={"/event/modify/:id"} element={
-                            <PrivateRoute>
-                                <EditEventPage/>
-                            </PrivateRoute>
-                        } />
-                        <Route path="*" element={<Home/>}/>                    
-                    </Routes>
-                </BrowserRouter>
-            </div>
+        <div className="mb-auto flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/home" element={<Home/>}/>
+                    <Route path="/login" element={
+                        <PublicRoute>
+                            <LoginPage/>
+                        </PublicRoute>
+                    } />
+                    <Route path="/signup" element={
+                        <PublicRoute>
+                            <SignupPage/>
+                        </PublicRoute>
+                    } />
+                    <Route path="/events" element={
+                        <PrivateRoute>
+                            <EventList isMyEvent={false}/>
+                        </PrivateRoute>
+                    } />
+                    <Route path="/myevents" element={
+                        <PrivateRoute>
+                            <EventList isMyEvent={true}/>
+                        </PrivateRoute>
+                    } />
+                    <Route path="/event/create" element={
+                        <PrivateRoute>
+                            <CreateEventPage/>
+                        </PrivateRoute>
+                    } />
+                    <Route path={"/event/modify/:id"} element={
+                        <PrivateRoute>
+                            <EditEventPage/>
+                        </PrivateRoute>
+                    } />
+                    <Route path="*" element={<Home/>}/>                    
+                </Routes>
+            </BrowserRouter>
         </div>
         <Footer/>
-    </>
+    </div>
   );
 }
 
