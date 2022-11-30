@@ -4,6 +4,11 @@ import Dropdown from './Dropdown';
 import GroupIcon from '@mui/icons-material/Group';
 import FaceIcon from '@mui/icons-material/Face';
 import EuroIcon from '@mui/icons-material/Euro';
+import mapService from "../service/openstreemap";
+import 'leaflet/dist/leaflet.css'
+import PlaceIcon from '@mui/icons-material/Place';
+
+import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 
 export default function EventList({isMyEvent}) {
     const [events, setEvents] = react.useState([]);
@@ -12,7 +17,20 @@ export default function EventList({isMyEvent}) {
 
     react.useEffect(() => {
             if (isMyEvent) {
-                apiService.getMyEvents().then((response) => {
+                apiService.getMyEvents().then(async (response) => {
+                        for (let i = 0; i < response.data.length; i++) {
+                            console.log('getLatLong');
+                            const address = response.data[i].address;
+                            const city = response.data[i].city;
+                            console.log(address + " " + city)
+                            await mapService.getLatLong(address + ' ' + city).then((l) => {
+                                console.log(l);
+
+                                response.data[i]['long'] = l.lon;
+                                response.data[i]['lat'] = l.lat;
+                            });
+
+                        }
                         setEvents(response.data);
                         setLoading(false);
                     }
@@ -22,9 +40,25 @@ export default function EventList({isMyEvent}) {
                     }
                 )
             } else {
-                apiService.getEvents().then((response) => {
+                apiService.getEvents().then(async (response) => {
+                        for (let i = 0; i < response.data.length; i++) {
+                            console.log('getLatLong');
+                            const address = response.data[i].address;
+                            const city = response.data[i].city;
+                            console.log(address + " " + city)
+                            await mapService.getLatLong(address + ' ' + city).then((l) => {
+                                console.log(l);
+
+                                response.data[i]['long'] = l.lon;
+                                response.data[i]['lat'] = l.lat;
+                            });
+
+                        }
+                        console.log('setEvents');
+                        console.log(response.data)
                         setEvents(response.data);
                         setLoading(false);
+
                     }
                 ).catch((error) => {
                         setError(error);
@@ -51,18 +85,24 @@ export default function EventList({isMyEvent}) {
                             let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
                             let eventHeure = date.getHours() + ':' + date.getMinutes()
 
-                            console.log(event)
+                            console.log("Event pos : " + event.lat + " : " + event.long);
+                            const position = [event.lat, event.long]
+
                             return (
                                 <div
                                     className="basis-[24%] text-left transition-shadow duration-200 rounded shadow-xl hover:shadow-2xl">
                                     <a className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
 
                                         <div className="relative">
-                                            <img
-                                                alt="Home"
-                                                src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                                className={"h-56 w-full rounded-md object-cover " + (event.state === 'CANCELLED' ? "blur-sm brightness-50" : "")}
-                                            />
+                                            <div className="border-amber-300 w-full h-64">
+                                                <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false} dragging={false}
+                                                              className="h-full w-full">
+                                                    <TileLayer
+                                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                    />
+                                                    <Marker position={position} key={PlaceIcon} ></Marker>
+                                                </MapContainer>
+                                            </div>
                                             {event.state === 'CANCELLED' && <div
                                                 className="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                                                 <h3>Annulé</h3></div>}
@@ -73,7 +113,7 @@ export default function EventList({isMyEvent}) {
                                                     <dt className="text-gray-500">Titre</dt>
                                                     <dd className="font-medium">&nbsp;: {event.title}</dd>
                                                     <div className="flex-1"></div>
-                                                    { (event.state !== 'CANCELLED' && isMyEvent) &&
+                                                    {(event.state !== 'CANCELLED' && isMyEvent) &&
                                                         <div><Dropdown id={event.id}/></div>
                                                     }
                                                 </div>
@@ -131,6 +171,7 @@ export default function EventList({isMyEvent}) {
                     )}
 
                 </div>
+
             </div>
         </>
     )
