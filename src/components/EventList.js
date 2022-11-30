@@ -39,8 +39,14 @@ export default function EventList({isMyEvent}) {
             className="px-10">
             {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
-            {isMyEvent && <h1 className="text-4xl font-bold text-slate-600 text-center mb-8">Liste de mes événements </h1>}
-            {!isMyEvent && <h1 className="text-4xl font-bold text-slate-600 text-center mb-8">Liste des événements </h1>}
+            {isMyEvent && <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 text-center mb-8">
+                    Liste de mes 
+                    <span className="text-purple-600"> events</span>
+                </h1>}
+            {!isMyEvent && <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 text-center mb-8">
+                    Liste des
+                    <span className="text-purple-600"> events</span>
+                </h1>}
         
             <div className="flex flex-row flex-wrap gap-8 justify-evenly">
                 {events.map((event) => {
