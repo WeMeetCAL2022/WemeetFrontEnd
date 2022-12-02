@@ -18,19 +18,6 @@ export default function EventList({isMyEvent}) {
     react.useEffect(() => {
             if (isMyEvent) {
                 apiService.getMyEvents().then(async (response) => {
-                        for (let i = 0; i < response.data.length; i++) {
-                            console.log('getLatLong');
-                            const address = response.data[i].address;
-                            const city = response.data[i].city;
-                            console.log(address + " " + city)
-                            await mapService.getLatLong(address + ' ' + city).then((l) => {
-                                console.log(l);
-
-                                response.data[i]['long'] = l.lon;
-                                response.data[i]['lat'] = l.lat;
-                            });
-
-                        }
                         setEvents(response.data);
                         setLoading(false);
                     }
@@ -41,24 +28,8 @@ export default function EventList({isMyEvent}) {
                 )
             } else {
                 apiService.getEvents().then(async (response) => {
-                        for (let i = 0; i < response.data.length; i++) {
-                            console.log('getLatLong');
-                            const address = response.data[i].address;
-                            const city = response.data[i].city;
-                            console.log(address + " " + city)
-                            await mapService.getLatLong(address + ' ' + city).then((l) => {
-                                console.log(l);
-
-                                response.data[i]['long'] = l.lon;
-                                response.data[i]['lat'] = l.lat;
-                            });
-
-                        }
-                        console.log('setEvents');
-                        console.log(response.data)
                         setEvents(response.data);
                         setLoading(false);
-
                     }
                 ).catch((error) => {
                         setError(error);
@@ -81,12 +52,13 @@ export default function EventList({isMyEvent}) {
                 </div>
                 <div className="relative flex flex-row flex-wrap gap-5 justify-evenly">
                     {events.map((event) => {
+                            console.log(event)
                             let date = new Date(event.date)
                             let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
                             let eventHeure = date.getHours() + ':' + date.getMinutes()
 
-                            console.log("Event pos : " + event.lat + " : " + event.long);
-                            const position = [event.lat, event.long]
+                            console.log("Event pos : " + event.latitude + " : " + event.longitude);
+                            const position = [event.latitude, event.longitude]
 
                             return (
                                 <div
