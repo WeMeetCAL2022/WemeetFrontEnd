@@ -4,6 +4,11 @@ import Dropdown from './Dropdown';
 import GroupIcon from '@mui/icons-material/Group';
 import FaceIcon from '@mui/icons-material/Face';
 import EuroIcon from '@mui/icons-material/Euro';
+import mapService from "../service/openstreemap";
+import 'leaflet/dist/leaflet.css'
+import PlaceIcon from '@mui/icons-material/Place';
+
+import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 
 export default function EventList({isMyEvent}) {
     const [events, setEvents] = react.useState([]);
@@ -12,7 +17,7 @@ export default function EventList({isMyEvent}) {
 
     react.useEffect(() => {
             if (isMyEvent) {
-                apiService.getMyEvents().then((response) => {
+                apiService.getMyEvents().then(async (response) => {
                         setEvents(response.data);
                         setLoading(false);
                     }
@@ -22,7 +27,7 @@ export default function EventList({isMyEvent}) {
                     }
                 )
             } else {
-                apiService.getEvents().then((response) => {
+                apiService.getEvents().then(async (response) => {
                         setEvents(response.data);
                         setLoading(false);
                     }
@@ -39,6 +44,7 @@ export default function EventList({isMyEvent}) {
             className="px-10">
             {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
+
             {isMyEvent && <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 text-center mb-8">
                     Liste de mes 
                     <span className="text-purple-600"> events</span>
@@ -53,18 +59,20 @@ export default function EventList({isMyEvent}) {
                         let date = new Date(event.date)
                         let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
                         let eventHeure = date.getHours() + ':' + date.getMinutes()
-
-                        console.log(event)
+                        
+                        console.log("Event pos : " + event.latitude + " : " + event.longitude);
+                        const position = [event.latitude, event.longitude]
+                        
                         return (
                             <div
                                 className="basis-[30%] text-left transition-shadow 
                                 duration-200 rounded shadow-xl hover:shadow-2xl p-4 hover:shadow-indigo-300">
                                 <div className="relative">
-                                    <img
-                                        alt="Home"
-                                        src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                        className={"h-56 w-full rounded-md object-cover " + (event.state === 'CANCELLED' ? "blur-sm brightness-50" : "")}
-                                    />
+                                    <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false} dragging={false}
+                                                  className="h-full w-full">
+                                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                                        <Marker position={position} key={PlaceIcon}></Marker>
+                                    </MapContainer>
                                     {event.state === 'CANCELLED' && <div
                                         className="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                                         <h3>Annulé</h3></div>}
