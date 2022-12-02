@@ -4,11 +4,10 @@ import Dropdown from './Dropdown';
 import GroupIcon from '@mui/icons-material/Group';
 import FaceIcon from '@mui/icons-material/Face';
 import EuroIcon from '@mui/icons-material/Euro';
-import mapService from "../service/openstreemap";
 import 'leaflet/dist/leaflet.css'
 import PlaceIcon from '@mui/icons-material/Place';
 
-import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
+import {MapContainer, TileLayer, Marker} from 'react-leaflet'
 
 export default function EventList({isMyEvent}) {
     const [events, setEvents] = react.useState([]);
@@ -43,32 +42,36 @@ export default function EventList({isMyEvent}) {
         <div
             className="px-10">
             {loading && <p>Loading...</p>}
-            {error && <p>{error.message}</p>}
 
             {isMyEvent && <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 text-center mb-8">
-                    Liste de mes 
-                    <span className="text-purple-600"> events</span>
-                </h1>}
+                Liste de mes
+                <span className="text-purple-600"> events</span>
+            </h1>}
             {!isMyEvent && <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 text-center mb-8">
-                    Liste des
-                    <span className="text-purple-600"> events</span>
-                </h1>}
-        
+                Liste des
+                <span className="text-purple-600"> events</span>
+            </h1>}
+
+            {events.length < 1 &&
+                <div className="text-center"><p className="text-red-600 text-xl">Aucun événement disponible pour le moment </p></div>}
+            {error && <div className="text-center"><p>Nous avons rencontré une erreur : "{error.message}"</p></div>}
+
             <div className="flex flex-row flex-wrap gap-8 justify-evenly">
                 {events.map((event) => {
                         let date = new Date(event.date)
                         let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
                         let eventHeure = date.getHours() + ':' + date.getMinutes()
-                        
+
                         console.log("Event pos : " + event.latitude + " : " + event.longitude);
                         const position = [event.latitude, event.longitude]
-                        
+
                         return (
                             <div
                                 className="basis-[30%] text-left transition-shadow 
                                 duration-200 rounded shadow-xl hover:shadow-2xl p-4 hover:shadow-indigo-300">
-                                <div className="relative">
-                                    <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false} dragging={false}
+                                <div className="relative h-52">
+                                    <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false}
+                                                  dragging={false}
                                                   className="h-full w-full">
                                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                         <Marker position={position} key={PlaceIcon}></Marker>
@@ -82,14 +85,15 @@ export default function EventList({isMyEvent}) {
                                         <span className="text-gray-500">Titre</span>
                                         <span className="font-medium">&nbsp;: {event.title}</span>
                                         <div className="flex-1"></div>
-                                        { (event.state !== 'CANCELLED' && isMyEvent) &&
+                                        {(event.state !== 'CANCELLED' && isMyEvent) &&
                                             <div><Dropdown id={event.id}/></div>
                                         }
                                     </div>
 
                                     <div className="flex">
                                         <span className="text-gray-500">Adresse :&nbsp;</span>
-                                        <span className="font-medium flex-1">{event.address}, {event.city} {event.postalCode}</span>
+                                        <span
+                                            className="font-medium flex-1">{event.address}, {event.city} {event.postalCode}</span>
                                     </div>
 
                                     <div className="flex mt-2">
