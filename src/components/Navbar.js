@@ -13,8 +13,9 @@ export default function Navbar() {
         <header aria-label="Site Header" className="bg-white shadow ">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
-                    <div className="flex-1 md:flex md:items-center md:gap-12">
+                    <div className="flex-1 md:flex md:items-center ">
                         <img className="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg" alt="Workflow"/>
+                        <img src={process.env.PUBLIC_URL + '/WeMeet.png'} alt="logo" className="h-12 w-auto sm:h-14"/>
                     </div>
 
                     <div className="md:flex md:items-center md:gap-12">

@@ -46,6 +46,11 @@ function App() {
                             <EventList isMyEvent={true}/>
                         </PrivateRoute>
                     } />
+                    <Route path="/event/:id" element={
+                        <PrivateRoute>
+                            <InfoEventPage/>
+                        </PrivateRoute>
+                    } />
                     <Route path="/event/create" element={
                         <PrivateRoute>
                             <CreateEventPage/>

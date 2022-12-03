@@ -14,7 +14,11 @@ export default function CreateEvent() {
         event.preventDefault();
         const json = JSON.stringify(fields);
         console.log(json);
-        ApiService.createEvent("/events/create",JSON.parse(json)).then(r => console.log());
+
+        ApiService.createEvent("/events/create",JSON.parse(json)).then(r =>
+            r.status==201? window.location.href = "/myevents": window.location.reload());
+        //redirect to my events
+
     }
 
     return (

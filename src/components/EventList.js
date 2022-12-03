@@ -67,18 +67,33 @@ export default function EventList({isMyEvent}) {
 
                         return (
                             <div
-                                className="basis-[30%] text-left transition-shadow 
+                                className="basis-[30%] text-left transition-shadow
                                 duration-200 rounded shadow-xl hover:shadow-2xl p-4 hover:shadow-indigo-300">
                                 <div className="relative h-52">
+
+                                    {event.state === 'CANCELLED' ?
+                                        <>
                                     <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false}
                                                   dragging={false}
-                                                  className="h-full w-full">
+                                                  className="h-full w-full blur ">
+
                                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                         <Marker position={position} key={PlaceIcon}></Marker>
                                     </MapContainer>
-                                    {event.state === 'CANCELLED' && <div
-                                        className="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                                        <h3>Annulé</h3></div>}
+                                        <div
+                                            className="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2  -translate-y-1/2">
+                                            <h3>Annulé</h3></div>
+                                        </>:
+                                        <>
+                                        <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false}
+                                                      dragging={false}
+                                                      className="h-full w-full ">
+
+                                            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                                            <Marker position={position} key={PlaceIcon}></Marker>
+                                        </MapContainer>
+
+                                        </>}
                                 </div>
                                 <div className="mt-4 text-slate-700">
                                     <div className="flex">
@@ -134,6 +149,14 @@ export default function EventList({isMyEvent}) {
                                         </div>
                                     </div>
                                 </div>
+                                <button
+                                    className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    disabled={event.state === 'CANCELLED'}
+                                    onClick={() => {
+                                        window.location.href = "/event/" + event.id;
+                                    }}>
+                                    En savoir plus
+                                </button>
                             </div>
                         )
                     }
