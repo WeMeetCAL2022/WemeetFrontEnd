@@ -14,6 +14,7 @@ export default function EventList({isMyEvent}) {
     const [loading, setLoading] = react.useState(true);
     const [error, setError] = react.useState(null);
 
+
     react.useEffect(() => {
             if (isMyEvent) {
                 apiService.getMyEvents().then(async (response) => {

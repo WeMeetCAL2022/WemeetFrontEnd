@@ -16,6 +16,8 @@ import EventList from "./components/EventList";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import EditEventPage from "./pages/EditEventPage";
+import InviteEventPage from "./pages/InviteEventPage";
+import InfoEventPage from "./pages/InfoEventPage";
 
 function App() {
   return (
@@ -59,6 +61,11 @@ function App() {
                     <Route path={"/event/modify/:id"} element={
                         <PrivateRoute>
                             <EditEventPage/>
+                        </PrivateRoute>
+                    } />
+                    <Route path={"/event/invite/:id"} element={
+                        <PrivateRoute>
+                            <InviteEventPage/>
                         </PrivateRoute>
                     } />
                     <Route path="*" element={<Home/>}/>                    
