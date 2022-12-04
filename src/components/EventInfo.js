@@ -12,7 +12,6 @@ export default function EventInfo(props) {
     let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
     let eventHeure = date.getHours() + ':' + date.getMinutes()
 
-    console.log("Event pos : " + event.latitude + " : " + event.longitude);
     const position = [event.latitude, event.longitude]
     return (
         <div

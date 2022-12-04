@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import apiService from "../service/api.service";
 import {countryList, EventFields} from "../constants/FormFields";
 
@@ -6,42 +6,56 @@ const fields = EventFields
 
 export default function ModifyEvent() {
 
-    const [event, setEvent] = React.useState({
-        "id": 0,
-        "title": "",
-        "description": "",
-        "date": "",
-        "time": "",
-        "city": "",
-        "address": "",
-        "postalCode": "",
-        "country": "",
-        "price": 0,
-        "isPublic": false,
-        "maxParticipants": 0,
+    const [event, setEvent] = useState({
+            "id": 0,
+            "title": "",
+            "description": "",
+            "date": "",
+            "time": "",
+            "city": "",
+            "address": "",
+            "postalCode": "",
+            "country": "",
+            "price": 0,
+            "isPublic": false,
+            "maxParticipants": 0,
 
-    }
+        }
     );
+
+    const [error, setError] = useState();
 
     const eventId = window.location.pathname.split("/")[3];
 
 
-React.useEffect(() => {
-        apiService.getEvent(eventId).then(r => {
-            setEvent(r.data);
-        })
-    }
-    , [eventId]);
-
+    React.useEffect(() => {
+            apiService.getEvent(eventId).then(r => {
+                const dt = new Date(r.data.date);
+                r.data.date = dt.toISOString().substring(0, 10);
+                r.data.time = dt.getHours() + ':' + ('0'+dt.getMinutes().toString()).slice(-2);
+                setEvent(r.data);
+            })
+        }
+        , [eventId]);
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(event);
+        let formError = false;
+        Object.keys(event).forEach((fieldName,i) => {
+            if(fieldName !== 'co_organizers' && fieldName !== 'participants' && event[fieldName].length === 0) {
+                formError = true;
+            }
+        });
+        if(formError) {
+            setError('Veuillez renseigner tous les champs')
+            return;
+        }
+
         apiService.put('/events/edit/' + eventId, event).then((response) => {
-            console.log(response);
+            window.location.href = "/myevents";
         }).catch((error) => {
-            console.log(error);
+            setError('Veuillez renseigner tous les champs')
         })
     }
 
@@ -51,16 +65,21 @@ React.useEffect(() => {
     }
 
 
-
     return (
         <>
-
+            {error && <div role="alert" className="mt-8">
+                <div className="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                    Erreur
+                </div>
+                <div className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                    <p> {error} </p>
+                </div>
+            </div>}
             <form className="mt-8 space-y-3 shadow-2xl rounded-lg p-10">
                 <div className="space-y-px ">
                     {fields.map((item) => {
                             return (
                                 <div key={item.id}>
-
                                     <div className="flex mt-4 justify-center">
                                         {item.type === "select" ? (
                                             <select
@@ -69,7 +88,7 @@ React.useEffect(() => {
                                                 type={item.type}
                                                 autoComplete={item.autoComplete}
                                                 required={item.isRequired}
-                                                placeholder={item.placeholder}
+                                                value={event[item.id]}
                                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                                                 onChange={handleChange}
                                             >
@@ -85,7 +104,7 @@ React.useEffect(() => {
                                                     name={item.id}
                                                     type={item.type}
                                                     autoComplete={item.id}
-                                                    placeholder={event[item.id]}
+                                                    value={event[item.id]}
 
                                                     required
                                                     className={item.id === "isPublic" ? "w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" :
@@ -121,7 +140,6 @@ React.useEffect(() => {
                     </div>
                 </div>
             </form>
-
         </>
     )
 

@@ -23,7 +23,7 @@ function App() {
   return (
     <div class="flex flex-col h-screen justify-between">
         <Navbar/>
-        <div className="mb-auto flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="mb-auto flex items-center justify-center">
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
