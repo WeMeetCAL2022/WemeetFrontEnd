@@ -31,6 +31,10 @@ class ApiService {
         return this.http.post('/events/cancel/' + id);
     }
 
+    participate(id) {
+        return this.http.post('/events/participate/' + id);
+    }
+
     put(path, data) {
         return this.http.put(path, data);
     }

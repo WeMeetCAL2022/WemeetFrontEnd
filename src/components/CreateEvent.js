@@ -5,7 +5,6 @@ import {EventFields,countryList,visibility} from "../constants/FormFields";
 const field = EventFields;
 let fieldsState = {};
 field.forEach((item) => {fieldsState[item.id] = ""});
-console.log(fieldsState);
 
 export default function CreateEvent() {
     const [fields, setFields] = React.useState(fieldsState);
@@ -13,7 +12,6 @@ export default function CreateEvent() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const json = JSON.stringify(fields);
-        console.log(json);
 
         ApiService.createEvent("/events/create",JSON.parse(json)).then(r =>
             r.status==201? window.location.href = "/myevents": window.location.reload());

@@ -5,7 +5,6 @@ import ApiService from "../service/api.service";
 const field = loginFields;
 let fieldsState = {};
 field.forEach((item) => {fieldsState[item.id] = ""});
-console.log(fieldsState);
 
 function setToken(userToken) {
     localStorage.setItem('token', JSON.stringify('Bearer '+userToken.accessToken));

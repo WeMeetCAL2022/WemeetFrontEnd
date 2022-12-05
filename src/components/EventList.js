@@ -8,6 +8,17 @@ import 'leaflet/dist/leaflet.css'
 import PlaceIcon from '@mui/icons-material/Place';
 
 import {MapContainer, TileLayer, Marker} from 'react-leaflet'
+import PopUp from "./PopUp";
+
+function setPopUpMessage(message) {
+    return message;
+
+}
+
+function setPopUp(b) {
+    return b;
+
+}
 
 export default function EventList({isMyEvent}) {
     const [events, setEvents] = react.useState([]);
@@ -154,9 +165,15 @@ export default function EventList({isMyEvent}) {
                                     className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                     disabled={event.state === 'CANCELLED'}
                                     onClick={() => {
-                                        window.location.href = "/event/" + event.id;
-                                    }}>
-                                    En savoir plus
+                                        apiService.participate(event.id).then(async (r) => {
+                                            if (r.status === 200) {
+                                                window.location.reload()
+
+                                    }
+                                })
+                            }}>
+                                {event.state === 'CANCELLED' ? 'Annulé' : 'Participer'}
+
                                 </button>
                             </div>
                         )
