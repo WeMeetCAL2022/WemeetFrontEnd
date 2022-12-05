@@ -1,14 +1,17 @@
-import React from "react";
+import react from "react";
 import InviteEvent from "../components/InviteEvent";
 import apiService from "../service/api.service";
 
 export default function InviteEventPage() {
     const id = window.location.pathname.split("/")[3];
-    const [event, setEvent] = React.useState([]);
+    const [event, setEvent] = react.useState([]);
 
-    React.useEffect(() => {
+    react.useEffect(() => {
             apiService.getEvent(id).then(r => {
+                console.log(r.data)
                 setEvent(r.data);
+            }).catch(e => {
+                console.log("ERROR : " + e)
             })
         }
         , [id]);

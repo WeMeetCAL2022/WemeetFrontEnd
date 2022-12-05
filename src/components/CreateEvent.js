@@ -18,7 +18,6 @@ export default function CreateEvent() {
         }
 
         Object.keys(fields).forEach((fieldName,i) => {
-            console.log(fieldName + ':' + fields[fieldName]);
             if(fieldName !== 'co_organizers' && fieldName !== 'participants' && fields[fieldName].length === 0) {
                 formError = true;
             }
