@@ -17,7 +17,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import EditEventPage from "./pages/EditEventPage";
 import InviteEventPage from "./pages/InviteEventPage";
-import InfoEventPage from "./pages/InfoEventPage";
 
 function App() {
   return (
