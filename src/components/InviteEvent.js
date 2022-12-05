@@ -85,8 +85,8 @@ export default function InviteEvent(props) {
                 ) : null}
 
                 <div className="max-w-screen-lg sm:mx-auto">
-                    <h1 className="text-3xl sm:text-3xl font-bold text-slate-800 text-center my-8">
-                        Liste des participants :
+                    <h1 className="text-3xl sm:text-3xl font-bold text-slate-800 text-center  my-8">
+                        {listParticipants === undefined || listParticipants.length === 0 ? "Aucun participant" : "Liste des participants"}
                     </h1>
                     {listParticipants !== undefined ?
                             listParticipants.map((person) => {

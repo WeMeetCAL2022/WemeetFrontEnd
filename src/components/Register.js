@@ -20,6 +20,10 @@ export default function Register() {
         event.preventDefault();
         const password = fields['password'];
         const confimPassword = fields['confirm-password'];
+        setPasswordError(null)
+        if(password.length < 6) {
+            setPasswordError('Le mot de passe doit contenir 6 caractères')
+        }
         if (password !== confimPassword) {
             setPasswordError('Les mots de passes ne sont pas identiques')
         } else {
