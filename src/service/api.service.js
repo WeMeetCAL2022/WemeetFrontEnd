@@ -31,6 +31,10 @@ class ApiService {
         return this.http.post('/events/cancel/' + id);
     }
 
+    participate(id) {
+        return this.http.post('/events/participate/' + id);
+    }
+
     put(path, data) {
         return this.http.put(path, data);
     }
@@ -46,6 +50,19 @@ class ApiService {
 
     login(param) {
         return this.http.post('/auth/signin', param);
+    }
+
+
+
+    inviteByEmail(param, data){
+        console.log(data)
+        let config = {
+            headers: {
+                'Content-Type': 'text/plain;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+            }
+        };
+        return this.http.post('/events/invite/' + param, data, config)
     }
 }
 

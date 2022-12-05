@@ -32,6 +32,19 @@ export default function Dropdown({id}) {
                     <Menu.Item>
                         {({active}) => (
                             <a
+                                href={'/event/invite/' + id}
+                                className={classNames(
+                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                    'block py-2 w-full text-left px-5'
+                                )}
+                            >
+                                Inviter
+                            </a>
+                        )}
+                    </Menu.Item>
+                    <Menu.Item>
+                        {({active}) => (
+                            <a
                                 href={'/event/modify/' + id}
                                 className={classNames(
                                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',

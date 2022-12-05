@@ -16,12 +16,13 @@ import EventList from "./components/EventList";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import EditEventPage from "./pages/EditEventPage";
+import InviteEventPage from "./pages/InviteEventPage";
 
 function App() {
   return (
     <div class="flex flex-col h-screen justify-between">
         <Navbar/>
-        <div className="mb-auto flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="mb-auto flex items-center justify-center">
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
@@ -46,6 +47,7 @@ function App() {
                             <EventList isMyEvent={true}/>
                         </PrivateRoute>
                     } />
+
                     <Route path="/event/create" element={
                         <PrivateRoute>
                             <CreateEventPage/>
@@ -54,6 +56,11 @@ function App() {
                     <Route path={"/event/modify/:id"} element={
                         <PrivateRoute>
                             <EditEventPage/>
+                        </PrivateRoute>
+                    } />
+                    <Route path={"/event/invite/:id"} element={
+                        <PrivateRoute>
+                            <InviteEventPage/>
                         </PrivateRoute>
                     } />
                     <Route path="*" element={<Home/>}/>                    

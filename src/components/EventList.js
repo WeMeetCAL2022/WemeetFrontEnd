@@ -8,11 +8,23 @@ import 'leaflet/dist/leaflet.css'
 import PlaceIcon from '@mui/icons-material/Place';
 
 import {MapContainer, TileLayer, Marker} from 'react-leaflet'
+import PopUp from "./PopUp";
+
+function setPopUpMessage(message) {
+    return message;
+
+}
+
+function setPopUp(b) {
+    return b;
+
+}
 
 export default function EventList({isMyEvent}) {
     const [events, setEvents] = react.useState([]);
     const [loading, setLoading] = react.useState(true);
     const [error, setError] = react.useState(null);
+
 
     react.useEffect(() => {
             if (isMyEvent) {
@@ -40,7 +52,7 @@ export default function EventList({isMyEvent}) {
         , []);
     return (
         <div
-            className="px-10">
+            className="p-10">
             {loading && <p>Loading...</p>}
 
             {isMyEvent && <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 text-center mb-8">
@@ -62,23 +74,37 @@ export default function EventList({isMyEvent}) {
                         let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
                         let eventHeure = date.getHours() + ':' + date.getMinutes()
 
-                        console.log("Event pos : " + event.latitude + " : " + event.longitude);
                         const position = [event.latitude, event.longitude]
 
                         return (
                             <div
-                                className="basis-[30%] text-left transition-shadow 
+                                className="text-left transition-shadow
                                 duration-200 rounded shadow-xl hover:shadow-2xl p-4 hover:shadow-indigo-300">
                                 <div className="relative h-52">
+
+                                    {event.state === 'CANCELLED' ?
+                                        <>
                                     <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false}
                                                   dragging={false}
-                                                  className="h-full w-full">
+                                                  className="h-full w-full blur ">
+
                                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                                         <Marker position={position} key={PlaceIcon}></Marker>
                                     </MapContainer>
-                                    {event.state === 'CANCELLED' && <div
-                                        className="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                                        <h3>Annulé</h3></div>}
+                                        <div
+                                            className="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2  -translate-y-1/2">
+                                            <h3>Annulé</h3></div>
+                                        </>:
+                                        <>
+                                        <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false}
+                                                      dragging={false}
+                                                      className="h-full w-full ">
+
+                                            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                                            <Marker position={position} key={PlaceIcon}></Marker>
+                                        </MapContainer>
+
+                                        </>}
                                 </div>
                                 <div className="mt-4 text-slate-700">
                                     <div className="flex">
@@ -134,6 +160,20 @@ export default function EventList({isMyEvent}) {
                                         </div>
                                     </div>
                                 </div>
+                                <button
+                                    className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    disabled={event.state === 'CANCELLED'}
+                                    onClick={() => {
+                                        apiService.participate(event.id).then(async (r) => {
+                                            if (r.status === 200) {
+                                                window.location.reload()
+
+                                    }
+                                })
+                            }}>
+                                {event.state === 'CANCELLED' ? 'Annulé' : 'Participer'}
+
+                                </button>
                             </div>
                         )
                     }
