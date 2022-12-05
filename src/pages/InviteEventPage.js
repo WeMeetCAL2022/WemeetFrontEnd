@@ -5,11 +5,13 @@ import apiService from "../service/api.service";
 export default function InviteEventPage() {
     const id = window.location.pathname.split("/")[3];
     const [event, setEvent] = React.useState([]);
+
     React.useEffect(() => {
-        apiService.getEvent(id).then(r => {
-            setEvent(r.data);
-        })
-    })
+            apiService.getEvent(id).then(r => {
+                setEvent(r.data);
+            })
+        }
+        , [id]);
 
     return (
         <div>

@@ -22,7 +22,6 @@ class ApiService {
     }
 
     getMyEvents() {
-
         return this.http.get('/events/mine');
     }
 
@@ -52,10 +51,15 @@ class ApiService {
         return this.http.post('/auth/signin', param);
     }
 
+    signup(param) {
+        return this.http.post('/auth/signup', param);
+    }
 
+    getParticipeEvent(){
+        return this.http.get('/events/participations')
+    }
 
     inviteByEmail(param, data){
-        console.log(data)
         let config = {
             headers: {
                 'Content-Type': 'text/plain;charset=UTF-8',

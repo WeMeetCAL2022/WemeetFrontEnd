@@ -22,6 +22,7 @@ function setPopUp(b) {
 
 export default function EventList({isMyEvent}) {
     const [events, setEvents] = react.useState([]);
+    const [eventsParticipe, setParticipeEvents] = react.useState([]);
     const [loading, setLoading] = react.useState(true);
     const [error, setError] = react.useState(null);
 
@@ -33,6 +34,14 @@ export default function EventList({isMyEvent}) {
                         setLoading(false);
                     }
                 ).catch((error) => {
+                        setError(error);
+                        setLoading(false);
+                    }
+                )
+                apiService.getParticipeEvent().then(async (response) => {
+                    setParticipeEvents(response.data);
+                    setLoading(false);
+                }).catch((error) => {
                         setError(error);
                         setLoading(false);
                     }
@@ -65,7 +74,8 @@ export default function EventList({isMyEvent}) {
             </h1>}
 
             {events.length < 1 &&
-                <div className="text-center"><p className="text-red-600 text-xl">Aucun événement disponible pour le moment </p></div>}
+                <div className="text-center"><p className="text-red-600 text-xl">Aucun événement disponible pour le
+                    moment </p></div>}
             {error && <div className="text-center"><p>Nous avons rencontré une erreur : "{error.message}"</p></div>}
 
             <div className="flex flex-row flex-wrap gap-8 justify-evenly">
@@ -84,25 +94,27 @@ export default function EventList({isMyEvent}) {
 
                                     {event.state === 'CANCELLED' ?
                                         <>
-                                    <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false}
-                                                  dragging={false}
-                                                  className="h-full w-full blur ">
+                                            <MapContainer center={position} zoom={13} scrollWheelZoom={false}
+                                                          zoomControl={false}
+                                                          dragging={false}
+                                                          className="h-full w-full blur ">
 
-                                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                                        <Marker position={position} key={PlaceIcon}></Marker>
-                                    </MapContainer>
-                                        <div
-                                            className="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2  -translate-y-1/2">
-                                            <h3>Annulé</h3></div>
-                                        </>:
+                                                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                                                <Marker position={position} key={PlaceIcon}></Marker>
+                                            </MapContainer>
+                                            <div
+                                                className="absolute text-5xl text-white top-1/2 left-1/2 -translate-x-1/2  -translate-y-1/2">
+                                                <h3>Annulé</h3></div>
+                                        </> :
                                         <>
-                                        <MapContainer center={position} zoom={13} scrollWheelZoom={false} zoomControl={false}
-                                                      dragging={false}
-                                                      className="h-full w-full ">
+                                            <MapContainer center={position} zoom={13} scrollWheelZoom={false}
+                                                          zoomControl={false}
+                                                          dragging={false}
+                                                          className="h-full w-full ">
 
-                                            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                                            <Marker position={position} key={PlaceIcon}></Marker>
-                                        </MapContainer>
+                                                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                                                <Marker position={position} key={PlaceIcon}></Marker>
+                                            </MapContainer>
 
                                         </>}
                                 </div>
@@ -166,12 +178,12 @@ export default function EventList({isMyEvent}) {
                                     onClick={() => {
                                         apiService.participate(event.id).then(async (r) => {
                                             if (r.status === 200) {
+                                                window.alert('Vous participez désormais a l event')
                                                 window.location.reload()
-
-                                    }
-                                })
-                            }}>
-                                {event.state === 'CANCELLED' ? 'Annulé' : 'Participer'}
+                                            }
+                                        })
+                                    }}>
+                                    {event.state === 'CANCELLED' ? 'Annulé' : 'Participer'}
 
                                 </button>
                             </div>

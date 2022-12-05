@@ -15,6 +15,7 @@ export default function InviteEvent(props) {
     if (event.participants !== undefined) {
         listParticipants = event.participants;
     }
+    console.log(listParticipants)
 
     return (
         <>
@@ -84,36 +85,27 @@ export default function InviteEvent(props) {
                 ) : null}
 
                 <div className="max-w-screen-lg sm:mx-auto">
+                    <h1 className="text-3xl sm:text-3xl font-bold text-slate-800 text-center my-8">
+                        Liste des participants :
+                    </h1>
                     {listParticipants !== undefined ?
-                        <h1 className="text-xl sm:text-xl font-bold text-slate-800 text-center my-8">
+                            listParticipants.map((person) => {
+                                console.log(person)
+                                return (
+                                    <div
+                                        className="flex flex-col items-start py-4 rounded sm:px-4 lg:flex-row justify-center">
+                                        <div className="mb-4 lg:mb-0">
+                                            <h5 className="mb-4 text-xl font-bold leading-none sm:text-2xl">
+                                                {person.firstName} {person.lastName}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        : <h1 className="text-xl sm:text-xl font-bold text-slate-800 text-center my-8">
                             Aucune personne présente dans l'
                             <span className="text-purple-600">event</span>
-                        </h1> :
-                        <div
-                            className="flex flex-col items-start py-4 transition duration-300 transform rounded sm:px-4 lg:flex-row sm:hover:translate-x-4 sm:hover:bg-blue-gray-50">
-                            <div className="mb-4 lg:mb-0">
-                                <h5 className="mb-4 text-xl font-bold leading-none sm:text-2xl">
-                                    Nom prénom
-                                </h5>
-                            </div>
-                            <div className="flex justify-start w-56 lg:justify-end">
-                                <a
-                                    href="/"
-                                    aria-label=""
-                                    className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                                >
-                                    Supprimer
-                                    <svg
-                                        className="inline-block w-3 ml-2"
-                                        fill="currentColor"
-                                        viewBox="0 0 12 12"
-                                    >
-                                        <path
-                                            d="M9.707,5.293l-5-5A1,1,0,0,0,3.293,1.707L7.586,6,3.293,10.293a1,1,0,1,0,1.414,1.414l5-5A1,1,0,0,0,9.707,5.293Z"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>}
+                        </h1>}
                 </div>
             </div>
         </>

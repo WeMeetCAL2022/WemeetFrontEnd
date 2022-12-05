@@ -30,23 +30,6 @@ export default function Home() {
                             ceux de vos amis gratuitement ! N'hésitez pas a vous inscrire pour profiter de toutes les
                             fonctionnalité de WeMeet !
                         </p>
-                        <div className="sm:flex sm:gap-4 justify-center">
-                            <a
-                                className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-violet"
-                                href="/signup"
-                            >
-                                S'inscrire
-                            </a>
-
-                            <div className="hidden sm:flex">
-                                <a
-                                    className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-violet"
-                                    href="/login"
-                                >
-                                    Se connecter
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -97,111 +80,78 @@ export default function Home() {
                         <div>
                             <img
                                 className="object-cover w-24 h-24 rounded-full shadow"
-                                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=3&amp;h=750&amp;w=1260"
-                                alt="Person"
-                            />
-                            <div className="flex flex-col justify-center mt-2">
-                                <p className="text-lg font-bold">Oliver Aguilerra</p>
-                                <p className="mb-4 text-xs text-gray-800">Product Manager</p>
-                                <p className="text-sm tracking-wide text-gray-800">
-                                    Pommy ipsum bent as a nine bob note naff off biscuits nowt, a
-                                    cuppa unhand me sir hadn't done it in donkey's years sod's law.
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <img
-                                className="object-cover w-24 h-24 rounded-full shadow"
-                                src="https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                                alt="Person"
-                            />
-                            <div className="flex flex-col justify-center mt-2">
-                                <p className="text-lg font-bold">Marta Clermont</p>
-                                <p className="mb-4 text-xs text-gray-800">Design Team Lead</p>
-                                <p className="text-sm tracking-wide text-gray-800">
-                                    Secondary fermentation degrees plato units of bitterness, cask
-                                    conditioned ale ibu real ale pint glass craft beer. krausen goblet
-                                    grainy ibu.
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <img
-                                className="object-cover w-24 h-24 rounded-full shadow"
-                                src="https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                                alt="Person"
-                            />
-                            <div className="flex flex-col justify-center mt-2">
-                                <p className="text-lg font-bold">Marta Clermont</p>
-                                <p className="mb-4 text-xs text-gray-800">Design Team Lead</p>
-                                <p className="text-sm tracking-wide text-gray-800">
-                                    Secondary fermentation degrees plato units of bitterness, cask
-                                    conditioned ale ibu real ale pint glass craft beer. krausen goblet
-                                    grainy ibu.
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <img
-                                className="object-cover w-24 h-24 rounded-full shadow"
-                                src="https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                                alt="Person"
-                            />
-                            <div className="flex flex-col justify-center mt-2">
-                                <p className="text-lg font-bold">Marta Clermont</p>
-                                <p className="mb-4 text-xs text-gray-800">Design Team Lead</p>
-                                <p className="text-sm tracking-wide text-gray-800">
-                                    Secondary fermentation degrees plato units of bitterness, cask
-                                    conditioned ale ibu real ale pint glass craft beer. krausen goblet
-                                    grainy ibu.
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <img
-                                className="object-cover w-24 h-24 rounded-full shadow"
-                                src="https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                                alt="Person"
-                            />
-                            <div className="flex flex-col justify-center mt-2">
-                                <p className="text-lg font-bold">Marta Clermont</p>
-                                <p className="mb-4 text-xs text-gray-800">Design Team Lead</p>
-                                <p className="text-sm tracking-wide text-gray-800">
-                                    Secondary fermentation degrees plato units of bitterness, cask
-                                    conditioned ale ibu real ale pint glass craft beer. krausen goblet
-                                    grainy ibu.
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <img
-                                className="object-cover w-24 h-24 rounded-full shadow"
-                                src="https://images.pexels.com/photos/3747435/pexels-photo-3747435.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                                alt="Person"
-                            />
-                            <div className="flex flex-col justify-center mt-2">
-                                <p className="text-lg font-bold">Alice Melbourne</p>
-                                <p className="mb-4 text-xs text-gray-800">Human Resources</p>
-                                <p className="text-sm tracking-wide text-gray-800">
-                                    I just closed my eyes and in a nanosecond I cured myself from this
-                                    ridiculous model of disease, addiction and obsession.
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <img
-                                className="object-cover w-24 h-24 rounded-full shadow"
                                 src="https://images.pexels.com/photos/3931603/pexels-photo-3931603.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
                                 alt="Person"
                             />
                             <div className="flex flex-col justify-center mt-2">
-                                <p className="text-lg font-bold">Martin Garix Potter</p>
-                                <p className="mb-4 text-xs text-gray-800">Good guy</p>
-                                <p className="text-sm tracking-wide text-gray-800">
-                                    Est Schlitz shoreditch fashion axe. Messenger bag cupidatat
-                                    Williamsburg sustainable aliqua, umami shabby chic artisan duis
-                                    pickled.
-                                </p>
+                                <p className="text-lg font-bold">Tarek Houamed</p>
+                                <p className="mb-4 text-xs text-gray-800">Product Manager</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img
+                                className="object-cover w-24 h-24 rounded-full shadow"
+                                src="https://media-exp1.licdn.com/dms/image/C4D03AQHj74LzjxPHoQ/profile-displayphoto-shrink_400_400/0/1625577151864?e=1675900800&v=beta&t=pfkBJfAyDgVRoKS6P0ZoPBAesfC4FDUnufBeZZqAPv4"
+                                alt="Person"
+                            />
+                            <div className="flex flex-col justify-center mt-2">
+                                <p className="text-lg font-bold">Julien Michot</p>
+                                <p className="mb-4 text-xs text-gray-800">Scrum Master</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img
+                                className="object-cover w-24 h-24 rounded-full shadow"
+                                src="https://media-exp1.licdn.com/dms/image/C4E03AQEBV-QaNKUoZg/profile-displayphoto-shrink_400_400/0/1662207116929?e=1675900800&v=beta&t=Y597km2SDUI5qs4wB0BTKzNtVBghyOqFoDFK4UZxPCQ"
+                                alt="Person"
+                            />
+                            <div className="flex flex-col justify-center mt-2">
+                                <p className="text-lg font-bold">Manal Laghmich</p>
+                                <p className="mb-4 text-xs text-gray-800">Developper</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img
+                                className="object-cover w-24 h-24 rounded-full shadow"
+                                src="https://media-exp1.licdn.com/dms/image/C4D03AQE3V9l_2j852A/profile-displayphoto-shrink_400_400/0/1540895983211?e=1675900800&v=beta&t=GsY7SrWUb-0jw4dKiqxnlTXWwQO_yTPNLCzr6mOcltU"
+                                alt="Person"
+                            />
+                            <div className="flex flex-col justify-center mt-2">
+                                <p className="text-lg font-bold">Nouria Ait Kheddach</p>
+                                <p className="mb-4 text-xs text-gray-800">Developper</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img
+                                className="object-cover w-24 h-24 rounded-full shadow"
+                                src="https://media-exp1.licdn.com/dms/image/C4E03AQHSB2VOWFlzrg/profile-displayphoto-shrink_400_400/0/1585691208280?e=1675900800&v=beta&t=7fWnDTvS-wrsgc1UNUAbWC-mt4WpDKsUurLlz4zgQsQ"
+                                alt="Person"
+                            />
+                            <div className="flex flex-col justify-center mt-2">
+                                <p className="text-lg font-bold">Antoine Kozlov</p>
+                                <p className="mb-4 text-xs text-gray-800">Developper</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img
+                                className="object-cover w-24 h-24 rounded-full shadow"
+                                src="https://media-exp1.licdn.com/dms/image/C4D03AQGvl5n9ZiBATw/profile-displayphoto-shrink_400_400/0/1658972996598?e=1675900800&v=beta&t=99u3mneuhEhz1xwZTGQGyxFIIYk9LA6b9sEXF9IBsN4"
+                                alt="Person"
+                            />
+                            <div className="flex flex-col justify-center mt-2">
+                                <p className="text-lg font-bold">Hatim M'rabet El Khomssi</p>
+                                <p className="mb-4 text-xs text-gray-800">Developper</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img
+                                className="object-cover w-24 h-24 rounded-full shadow"
+                                src="https://media-exp1.licdn.com/dms/image/C4D03AQEVmBkpSXU8lA/profile-displayphoto-shrink_400_400/0/1587917622249?e=1675900800&v=beta&t=HdpcutiQJtYIi8H85--fD5b8s88Z5pjVeZqIbKoGVV8"
+                                alt="Person"
+                            />
+                            <div className="flex flex-col justify-center mt-2">
+                                <p className="text-lg font-bold">Antoine Pochet</p>
+                                <p className="mb-4 text-xs text-gray-800">Developper</p>
                             </div>
                         </div>
                     </div>
