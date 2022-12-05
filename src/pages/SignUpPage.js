@@ -4,7 +4,7 @@ import Header from "../components/Header";
 
 export default function SignUpPage() {
     return(
-        <div className="shadow-xl rounded-md p-8">
+        <div className="shadow-xl rounded-md p-8 my-8">
 
             <Header
                 heading="Créez votre compte"

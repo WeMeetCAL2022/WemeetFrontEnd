@@ -24,9 +24,9 @@ const loginFields=[
 const signupFields=[
     {
         labelText:"First Name",
-        labelFor:"first-name",
-        id:"first-name",
-        name:"first-name",
+        labelFor:"firstName",
+        id:"firstName",
+        name:"firstName",
         type:"text",
         autoComplete:"first-name",
         isRequired:true,
@@ -34,9 +34,9 @@ const signupFields=[
     },
     {
         labelText:"Last Name",
-        labelFor:"last-name",
-        id:"last-name",
-        name:"last-name",
+        labelFor:"lastName",
+        id:"lastName",
+        name:"lastName",
         type:"text",
         autoComplete:"last-name",
         isRequired:true,
@@ -44,8 +44,8 @@ const signupFields=[
     },
     {
         labelText:"Email address",
-        labelFor:"email-address",
-        id:"email-address",
+        labelFor:"email",
+        id:"email",
         name:"email",
         type:"email",
         autoComplete:"email",

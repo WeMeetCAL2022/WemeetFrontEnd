@@ -12,7 +12,6 @@ class ApiService {
     }
 
     getEvents() {
-        // show headers
         return this.http.get('/events');
     }
 
@@ -43,7 +42,6 @@ class ApiService {
     }
 
     createEvent(path, data) {
-        //return this.http.post(path, {title: "foot",date: "2022-11-08",city: "lille",address: "4 rue des postes", postalCode: "59000", country: "France", price: "2", isPublic: false, maxParticipants: "5", description: "match de foot entre amis" });
         return this.http.post(path, data);
     }
 

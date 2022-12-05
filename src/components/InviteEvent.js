@@ -15,7 +15,7 @@ export default function InviteEvent(props) {
     if (event.participants !== undefined) {
         listParticipants = event.participants;
     }
-    console.log(listParticipants)
+    // console.log(listParticipants)
 
     return (
         <>
