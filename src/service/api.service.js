@@ -51,6 +51,19 @@ class ApiService {
     login(param) {
         return this.http.post('/auth/signin', param);
     }
+
+
+
+    inviteByEmail(param, data){
+        console.log(data)
+        let config = {
+            headers: {
+                'Content-Type': 'text/plain;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+            }
+        };
+        return this.http.post('/events/invite/' + param, data, config)
+    }
 }
 
 export default new ApiService();

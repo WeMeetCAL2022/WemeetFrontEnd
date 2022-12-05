@@ -15,7 +15,7 @@ export default function Register() {
     const handleSubmit = (event) => {
         event.preventDefault();
         ApiService.login(field).then(r =>
-            console.log(r));
+            console.log(r))
     }
     return (
         <form className="mt-8 space-y-3">

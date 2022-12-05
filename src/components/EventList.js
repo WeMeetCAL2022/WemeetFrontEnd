@@ -52,7 +52,7 @@ export default function EventList({isMyEvent}) {
         , []);
     return (
         <div
-            className="px-10">
+            className="p-10">
             {loading && <p>Loading...</p>}
 
             {isMyEvent && <h1 className="text-3xl sm:text-4xl font-bold text-slate-800 text-center mb-8">
@@ -74,12 +74,11 @@ export default function EventList({isMyEvent}) {
                         let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
                         let eventHeure = date.getHours() + ':' + date.getMinutes()
 
-                        console.log("Event pos : " + event.latitude + " : " + event.longitude);
                         const position = [event.latitude, event.longitude]
 
                         return (
                             <div
-                                className="basis-[30%] text-left transition-shadow
+                                className="text-left transition-shadow
                                 duration-200 rounded shadow-xl hover:shadow-2xl p-4 hover:shadow-indigo-300">
                                 <div className="relative h-52">
 
