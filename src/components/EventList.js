@@ -75,7 +75,7 @@ export default function EventList({isMyEvent}) {
                 {events.map((event) => {
                         let date = new Date(event.date)
                         let eventDate = date.getDate() + '-' + parseInt(date.getMonth() + 1) + '-' + date.getFullYear()
-                        let eventHeure = date.getHours() + ':' + date.getMinutes()
+                        let eventHeure = date.getHours() + ':' + ('0'+date.getMinutes().toString()).slice(-2);
 
                         const position = [event.latitude, event.longitude]
 

@@ -5,9 +5,12 @@ export default function InviteEvent(props) {
 
     const [showModal, setShowModal] = React.useState(false);
     const [email, setEmail] = React.useState('');
+    const [emailSent, setEmailSent] = React.useState(false);
+    const [emailError, setEmailError] = React.useState(false);
 
     const handleChange = (event) => {
         setEmail(event.target.value);
+        setEmailSent(false);
     };
 
     const {event} = props;
@@ -44,7 +47,11 @@ export default function InviteEvent(props) {
                                         </h3>
                                         <button
                                             className="p-1 ml-auto bg-transparent border-0 text-black opacity-50 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                                            onClick={() => setShowModal(false)}
+                                            onClick={() => {
+                                                setShowModal(false);
+                                                setEmailSent(false);
+                                                setEmailError(false);
+                                            }}
                                         >
                                             <span
                                                 className="bg-transparent text-black h-6 w-6 text-2xl block outline-none focus:outline-none">
@@ -60,19 +67,41 @@ export default function InviteEvent(props) {
                                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         </input>
                                     </div>
+                                    {emailSent && <div className="mb-4"><span className="text-green-600">Email envoyé</span></div>}
+                                    {emailError && <div className="mb-4"><span className="text-red-600">Email inconnu</span></div>}
                                     <div
                                         className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                                         <button
                                             className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button"
-                                            onClick={() => setShowModal(false)}
+                                            onClick={() => {
+                                                setShowModal(false);
+                                                setEmailSent(false);
+                                                setEmailError(false);
+                                            }}
                                         >
                                             Fermer
                                         </button>
                                         <button
                                             className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button"
-                                            onClick={() => ApiService.inviteByEmail(event.id, {email}.email)}
+                                            onClick={() => {
+                                                ApiService.inviteByEmail(event.id, {email}.email)
+                                                    .then(r => {
+                                                        setEmailSent(true);
+                                                        setEmailError(false);
+                                                        document.getElementById('email').value = '';
+                                                    }).catch(err => {
+                                                        if(err.response.status === 500) {
+                                                            setEmailError(true);
+                                                        } else {
+                                                            setEmailError(false);
+                                                            setEmailSent(true);
+                                                            document.getElementById('email').value = '';
+                                                        }
+                                                });
+                                            }
+                                        }
                                         >
                                             Inviter
                                         </button>
@@ -90,7 +119,6 @@ export default function InviteEvent(props) {
                     </h1>
                     {listParticipants !== undefined ?
                             listParticipants.map((person) => {
-                                console.log(person)
                                 return (
                                     <div
                                         className="flex flex-col items-start py-4 rounded sm:px-4 lg:flex-row justify-center">
