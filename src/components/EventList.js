@@ -175,7 +175,8 @@ export default function EventList({isMyEvent}) {
                                                     window.alert("Vous participez désormais a l'event !")
                                                     window.location.reload()
                                                 }
-                                            })
+                                            }).catch((e) => {
+                                                window.alert("Vous participez déjà a l'event !")                                            })
                                         }}>
                                         {event.state === 'CANCELLED' ? 'Annulé' : 'Participer'}
 
